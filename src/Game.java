@@ -1,44 +1,47 @@
 public class Game {
 
     private Board board;
-    private int numOfGenerations;
+    private final int numOfGenerations;
 
+    /**
+     * Constructor for the Game class.
+     * @param rows the number of rows in the board
+     * @param cols the number of columns in the board
+     * @param seed the seed for the random number generator
+     * @param range the range for the random number generator
+     * @param numOfGenerations the number of generations to run the game
+     */
     public Game(int rows, int cols, int seed, int range, int numOfGenerations) {
         this.board = new Board(rows, cols, seed, range);
         this.numOfGenerations = numOfGenerations;
     }
 
+    /**
+     * Runs the game for the specified number of generations.
+     */
     public void runGame() {
-        Board temp = new Board(board.getRows(), board.getCols(), board.getSeed(), board.getRange());
+        // resets the board to the initial state
         this.board = new Board(board.getRows(), board.getCols(), board.getSeed(), board.getRange());
+        // creates a temporary board to store the current generation's cells
+        Board temp;
 
         for (int i = 0; i <= numOfGenerations; i++) {
 
             System.out.println("Generation " + i + ":");
             System.out.print(board);
-            System.out.println(board.hashCode());
 
-            int count = 0;
+            temp = new Board(board); // copies the current generation's cells to the temp board
 
-            for (int row = 0; row < board.getRows(); row++) {
-                for (int col = 0; col < board.getCols(); col++) {
-//                    temp.getCells()[row][col] = new Cell(board.getCells()[row][col].getType(), row, col);
-                    temp.getCells()[row][col] = board.getCells()[row][col];
-                    if (board.getCells()[row][col].getType() == CellType.DEAD) {
-                        count++;
-                    }
-                }
-            }
-
-            if (count == board.getRows()*board.getCols()) {
+            // all cells are dead
+            if (board.isDead()) {
                 System.out.println("All cells are dead.");
                 return;
             }
 
             board.nextGeneration();
 
-            // current generation is the same as the previous one
-            if (board.equals(temp) && i+1 <= numOfGenerations) {
+            // checks if current generation is the same as the previous one
+            if (board.isStabilized(temp) && i+1 <= numOfGenerations) {
                 System.out.println("Generation " + (i+1) + ":" );
                 System.out.print(board);
                 System.out.println("Cells have stabilized.");

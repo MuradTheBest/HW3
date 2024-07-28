@@ -1,11 +1,17 @@
-public class SickCell extends GameCell{
+public class SickCell extends Cell {
+
     @Override
-    public GameCell nextGeneration(int numHealthy, int numSick) {
-        return null;
+    public Cell nextGeneration(int numHealthy, int numSick) {
+        if ((numHealthy < 2 || numHealthy > 3) || numSick > 2) {
+            return new DyingCell();
+        }
+        else {
+            return new HealthyCell();
+        }
     }
 
     @Override
-    public String getType() {
-        return "";
+    public String toString() {
+        return "S";
     }
 }

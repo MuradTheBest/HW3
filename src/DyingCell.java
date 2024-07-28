@@ -1,6 +1,13 @@
-public class DyingCell extends GameCell{
+public class DyingCell extends Cell {
+
+    /**
+     * Returns a new cell based on the number of healthy and sick neighbors.
+     * @param numHealthy the number of healthy neighbors
+     * @param numSick the number of sick neighbors
+     * @return a new cell based on the number of healthy and sick neighbors
+     */
     @Override
-    public GameCell nextGeneration(int numHealthy, int numSick) {
+    public Cell nextGeneration(int numHealthy, int numSick) {
         if (numHealthy != 3 || numSick > 1) {
             return new DeadCell();
         }
@@ -10,7 +17,7 @@ public class DyingCell extends GameCell{
     }
 
     @Override
-    public String getType() {
+    public String toString() {
         return "D";
     }
 }

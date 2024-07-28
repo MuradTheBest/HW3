@@ -1,62 +1,29 @@
-import java.util.Random;
+public abstract class Cell {
 
-public class Cell {
-    private CellType type;
+    public Cell() {}
 
-    public Cell(CellType type) {
-        this.type = type;
-    }
+    /**
+     * Returns a new cell based on the number of healthy and sick neighbors.
+     * @param numHealthy the number of healthy neighbors
+     * @param numSick the number of sick neighbors
+     * @return a new cell based on the number of healthy and sick neighbors
+     */
+    public abstract Cell nextGeneration(int numHealthy, int numSick);
 
-    public Cell(Random random, int range) {
-        this.type = random.nextInt(range) % 2 == 0 ? CellType.DEAD : CellType.HEALTHY;
-    }
-
-    public Cell nextGeneration(int numHealthy, int numSick) {
-        switch (this.type) {
-            case DEAD:
-                if (numHealthy == 3) {
-                    return new Cell(CellType.HEALTHY);
-                }
-                break;
-            case HEALTHY:
-                if ((numHealthy < 2 || numHealthy > 3) || numSick > 3) {
-                    return new Cell(CellType.SICK);
-                }
-                break;
-            case SICK:
-                if ((numHealthy < 2 || numHealthy > 3) || numSick > 2) {
-                    return new Cell(CellType.DYING);
-                }
-                else {
-                    return new Cell(CellType.HEALTHY);
-                }
-            case DYING:
-                if (numHealthy != 3 || numSick > 1) {
-                    return new Cell(CellType.DEAD);
-                }
-                else {
-                    return new Cell(CellType.HEALTHY);
-                }
-        }
-
-//        System.out.println(type + ", numHealthy = " + numHealthy + ", numSick = " + numSick);
-
-        return this;
-    }
-
-    public CellType getType() {
-        return type;
-    }
-
+    /**
+     * Checks if two cells are equal.
+     * @param obj the other cell to compare with
+     * @return true if the cells are equal, false otherwise
+     */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cell cell)) return false;
-        return this.type == cell.type;
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // checks if the cells are the same object
+        if (!(obj instanceof Cell cell)) return false; // checks if the other object is a cell
+        return this.getClass() == cell.getClass(); // checks if the cells are of the same type
     }
 
     @Override
     public int hashCode() {
-        return this.type.toString().hashCode();
+        return toString().hashCode();
     }
 }
