@@ -1,12 +1,17 @@
 import java.util.Random;
 
+/**
+ * The Board class represents a game board consisting of cells.
+ * It provides methods to generate the board, copy the board,
+ * generate the next generation of cells, and check the board's state.
+ */
 public class Board {
 
-    private Cell[][] cells;
-    private final int rows;
-    private final int cols;
-    private final int seed;
-    private final int range;
+    private Cell[][] cells; // 2D array of cells on the board
+    private final int rows; // number of rows in the board
+    private final int cols; // number of columns in the board
+    private final int seed; // seed for the random number generator
+    private final int range; // range for the random number generator
 
     /**
      * Constructor for the Board class.
@@ -61,22 +66,42 @@ public class Board {
         }
     }
 
+    /**
+     * Gets the cells of the board.
+     * @return a 2D array of cells
+     */
     public Cell[][] getCells() {
         return cells;
     }
 
+    /**
+     * Gets the number of rows in the board.
+     * @return the number of rows
+     */
     public int getRows() {
         return rows;
     }
 
+    /**
+     * Gets the number of columns in the board.
+     * @return the number of columns
+     */
     public int getCols() {
         return cols;
     }
 
+    /**
+     * Gets the seed for the random number generator.
+     * @return the seed
+     */
     public int getSeed() {
         return seed;
     }
 
+    /**
+     * Gets the range for the random number generator.
+     * @return the range
+     */
     public int getRange() {
         return range;
     }
@@ -154,9 +179,9 @@ public class Board {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols-1; j++) {
-                System.out.print(cells[i][j] + " ");
+                System.out.print(cells[i][j].getType() + " "); // prints the cell followed by a space
             }
-            System.out.print(cells[i][cols-1]); // prints the last cell in the row
+            System.out.print(cells[i][cols-1].getType()); // prints the last cell in the row
             System.out.println();
         }
 

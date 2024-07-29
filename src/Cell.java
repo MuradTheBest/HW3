@@ -1,5 +1,7 @@
 public abstract class Cell {
 
+    protected String type; // the type of the cell
+
     public Cell() {}
 
     /**
@@ -9,6 +11,14 @@ public abstract class Cell {
      * @return a new cell based on the number of healthy and sick neighbors
      */
     public abstract Cell nextGeneration(int numHealthy, int numSick);
+
+    /**
+     * Returns the type of the cell.
+     * @return the type of the cell
+     */
+    public String getType() {
+        return this.type;
+    }
 
     /**
      * Checks if two cells are equal.
@@ -24,6 +34,6 @@ public abstract class Cell {
 
     @Override
     public int hashCode() {
-        return toString().hashCode();
+        return this.type.hashCode();
     }
 }

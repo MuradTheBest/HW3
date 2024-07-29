@@ -1,7 +1,7 @@
 public class Game {
 
-    private Board board;
-    private final int numOfGenerations;
+    private Board board; // the board for the game
+    private final int numOfGenerations; // the number of generations to run the game
 
     /**
      * Constructor for the Game class.
@@ -12,8 +12,8 @@ public class Game {
      * @param numOfGenerations the number of generations to run the game
      */
     public Game(int rows, int cols, int seed, int range, int numOfGenerations) {
-        this.board = new Board(rows, cols, seed, range);
-        this.numOfGenerations = numOfGenerations;
+        this.board = new Board(rows, cols, seed, range); // creates a new board based on the parameters
+        this.numOfGenerations = numOfGenerations; // sets the number of generations
     }
 
     /**
